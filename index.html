@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Task App</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    </head>
+    <body>
+        <div class = "header">
+            <span class="icon"></span><span>Task Management App</span>
+        </div>
+        <div class = "app-container">
+            <div class="sidebar" id="sidebar">
+                <div class="toggle-btn-container">
+                    <button id="toggle-btn">☰</button>
+                    <button id="add-btn">+</button>
+                </div>
+                <nav>
+                    <ul>
+                    </ul>
+                </nav>
+            </div>
+            <div class = "task-container">
+                
+            </div>
+        </div>
+
+    <div class="popup-container" id="popup-container">
+        <div class="popup">
+            <div class="popup-select-header">
+                <span>Select a list type</span>
+                <button id="popup-close">⨯</button>
+            </div>
+            <hr>
+            <button class="popup-option" id="text-button">Text</button>
+            <button class="popup-option" id="todo-button">To-Do List</button>
+            <button class="popup-option" id="task-button">Task</button>
+        </div>
+    </div>
+
+    <div id="popup-confirm" class="popup-confirm">
+        <div class="popup-content">
+            <p>Are you sure you want to delete this list?</p>
+            <button id="confirm-yes">Yes</button>
+            <button id="confirm-no">No</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    </body>
+
+    
+</html>
