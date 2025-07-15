@@ -248,7 +248,10 @@ function renderListContent(index) {
       const tbody = document.createElement('tbody');
       list.tasks.forEach((task, taskIndex) => {
           const row = document.createElement('tr');
-          row.className = `task-row ${task.status} priority-${task.priority}`;
+          const isOverdue = isTaskOverdue(task.endDate) && task.status !== 'completed';
+          row.className = `task-row ${task.status} priority-${task.priority} ${
+            isOverdue ? 'overdue' : ''
+          }`;
           
 
           const titleCell = document.createElement('td');
@@ -273,15 +276,17 @@ function renderListContent(index) {
           startDateCell.appendChild(startDateInput);
           
 
-          const endDateCell = document.createElement('td');
-          const endDateInput = document.createElement('input');
-          endDateInput.type = 'date';
-          endDateInput.value = task.endDate || '';
-          endDateInput.addEventListener('change', (e) => {
+            const endDateCell = document.createElement('td');
+            const endDateInput = document.createElement('input');
+            endDateInput.type = 'date';
+            endDateInput.value = task.endDate || '';
+            endDateInput.className = isOverdue ? 'overdue-date' : '';
+            endDateInput.addEventListener('change', (e) => {
               lists[index].tasks[taskIndex].endDate = e.target.value;
               saveLists();
-          });
-          endDateCell.appendChild(endDateInput);
+              renderListContent(index); 
+            });
+            endDateCell.appendChild(endDateInput);
           
 
           const priorityOptions = [
@@ -303,7 +308,10 @@ function renderListContent(index) {
           prioritySelect.addEventListener('change', (e) => {
               lists[index].tasks[taskIndex].priority = e.target.value; 
               saveLists();
-              row.className = `task-row ${task.status} priority-${e.target.value}`;
+              const isStillOverdue = isTaskOverdue(task.endDate) && task.status !== 'completed';
+              row.className = `task-row ${task.status} priority-${newPriority} ${
+                  isStillOverdue ? 'overdue' : ''
+              }`;
           });
           priorityCell.appendChild(prioritySelect);
           
@@ -380,6 +388,12 @@ function renderTaskContainer() {
     } else {
         renderListContent(currentListIndex);
     }
+}
+
+function isTaskOverdue(endDate) {
+  if (!endDate) return false; 
+  const today = new Date().toISOString().split('T')[0];
+  return endDate < today; 
 }
 
 toggleBtn.addEventListener('click', () => {

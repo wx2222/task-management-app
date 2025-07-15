@@ -719,8 +719,20 @@ body {
     display: none;
 }
 
+@keyframes pulseOverdue {
+  0% {
+    background-color: #ffb9b9;
+  }
+  50% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: #ffb9b9;
+  }
+}
 
-
-
+.task-row.overdue {
+  animation: pulseOverdue 3s infinite ease-in-out !important;
+}
 
 
