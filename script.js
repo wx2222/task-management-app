@@ -306,12 +306,21 @@ function renderListContent(index) {
           });
 
           prioritySelect.addEventListener('change', (e) => {
-              lists[index].tasks[taskIndex].priority = e.target.value; 
-              saveLists();
-              const isStillOverdue = isTaskOverdue(task.endDate) && task.status !== 'completed';
-              row.className = `task-row ${task.status} priority-${newPriority} ${
-                  isStillOverdue ? 'overdue' : ''
-              }`;
+            const newPriority = e.target.value;
+
+            lists[index].tasks[taskIndex].priority = newPriority;
+            saveLists();
+            
+            const currentTask = lists[index].tasks[taskIndex];
+            
+            const isOverdue = isTaskOverdue(currentTask.endDate) && currentTask.status !== 'completed';
+        
+            row.className = [
+                'task-row',
+                currentTask.status,
+                `priority-${newPriority}`,
+                isOverdue ? 'overdue' : ''
+            ].filter(Boolean).join(' ');
           });
           priorityCell.appendChild(prioritySelect);
           
